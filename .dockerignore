@@ -1,0 +1,12 @@
+.venv
+.venv-1
+.vscode
+crops
+crops.zip
+yolo_dataset
+yolo_dataset.zip
+resultats
+evaluation
+résultat entrainement google scholar
+__pycache__
+*.zip

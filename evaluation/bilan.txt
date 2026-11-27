@@ -1,0 +1,8 @@
+Évaluation de bout en bout sur 201 images de test
+(IoU >= 0.5, seuil de détection YOLO = 0.25)
+
+Vrais avions : 1165 | avions prédits : 1197 | trouvés : 1165 | trouvés ET bien identifiés : 1132
+
+DÉTECTION    précision 97.3% | rappel 100.0%
+CLASSIFICATION (sur les avions trouvés) : 97.2%
+BOUT EN BOUT précision 94.6% | rappel 97.2%
