@@ -25,7 +25,8 @@ image satellite ──> YOLO26n (1 classe : "avion") ──> rectangles
 |---|---|
 | Classifieur ResNet18 (vignettes découpées à la main) | 97,7 % de précision |
 | Détecteur YOLO (201 images, 1165 avions) | précision 1,000 · rappel 0,998 · mAP50 0,990 · mAP50-95 0,811 |
-| Bout en bout (YOLO + ResNet) | voir `evaluation/bilan.txt` (`python etape6_evaluation.py`) |
+| Bout en bout (YOLO + ResNet), nos 201 images de test | détection : précision 97,3 % / rappel 100 % · classification : 97,2 % · bout en bout : précision 94,6 % / rappel 97,2 % (détails dans `evaluation/bilan.txt`, `python etape6_evaluation.py`) |
+| Corpus d'évaluation du professeur (2 511 images, 14 471 avions) | F1 global 0,816 · F1 détection 0,984 · F1 classification 0,829 (calculés par la page d'évaluation du professeur) |
 
 ## Contenu du dépôt
 
@@ -37,7 +38,10 @@ image satellite ──> YOLO26n (1 classe : "avion") ──> rectangles
 | `etape4b_yolo.py` | entraîne le détecteur YOLO (réalisé sur Google Colab, GPU T4) |
 | `etape5_pipeline.py` | pipeline complet : détection + classification + images annotées + CSV |
 | `etape6_evaluation.py` | évaluation de bout en bout contre les annotations (IoU ≥ 0,5) |
+| `etape7_export_json.py` | produit `predictions.json` (format de la page d'évaluation du professeur) |
 | `app.py` | interface Streamlit |
+| `corpus_eval_annote/` | corpus de test du professeur annoté par le modèle (images annotées + CSV) |
+| `DEMO.md` | aide-mémoire pour la démonstration |
 | `Dockerfile`, `requirements.txt` | déploiement |
 | `sauvegardes/` | `best.pt` (YOLO) et `meilleur_modele.pth` (ResNet) |
 
@@ -59,3 +63,10 @@ python etape5_pipeline.py "chemin/vers/images"
 docker build -t avions .
 docker run -p 8501:8501 avions     # puis ouvrir http://localhost:8501
 ```
+
+## Corpus de test annoté
+
+Le dossier `corpus_eval_annote/` contient les images du corpus d'évaluation fourni, annotées par notre
+modèle, avec le fichier CSV des détections. Le fichier `predictions.json` contient les mêmes prédictions
+au format demandé par la page d'évaluation (`{"1.jpg": [{"class": "A2", "coordinates": {...}}]}`).
+Ce corpus n'a jamais servi à l'entraînement ni au réglage des modèles.
